@@ -1,0 +1,99 @@
+
+<!-- API HW
+   - By: Ansgar Jordan
+   - Date: 3/23/2020
+   - Purpose: JSON Set list for Cover Band
+   -->
+
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8"/>
+    <title> API Fun </title>
+    <style>
+      body{
+        text-align: center;
+        font-family: Courier New;
+      }
+      #information{
+        margin-left: 30vw;
+        margin-right:30vw;
+        text-align: justify;
+        font-size:4vmin;
+      }
+      #button1{
+        padding: 5vmin;
+        background: linear-gradient(
+        rgba(5, 16, 176, 0.90), 
+        rgba(199, 18, 18, 0.90)
+         ),
+      center center fixed;
+      color:white;
+
+      }
+      #button1:hover{
+        background-color:black;
+      }
+      #result{
+        margin-left: auto;
+        margin-right: auto;
+        height: 10vh;
+        width: 10vw;
+        padding: 5vmin;
+        background: linear-gradient(
+        rgba(5, 16, 176, 0.90), 
+        rgba(199, 18, 18, 0.90)
+         ),
+        center center fixed;
+        color:white;
+        font-size: 6vmin;
+      }
+    </style>
+    <script language="javascript">
+      
+
+
+        function getInformation()
+        {
+        
+          var request = new XMLHttpRequest();
+
+          request.open("GET", "https://datazen.katren.ru/calendar/day/", true)
+
+
+          request.addEventListener("readystatechange", function () {
+          if (this.readyState === this.DONE) {
+             console.log(this.responseText);
+             var result = JSON.parse(this.responseText);
+             
+             var is_holiday = result.holiday; 
+             if (is_holiday === false){
+                document.getElementById("result").innerHTML = "No";
+             } else {
+                document.getElementById("result").innerHTML = "Yes";
+             }
+
+             }
+         });
+        request.send();
+}
+
+    </script>
+  </head>
+
+  <body>
+    <h2> API Fun Homework </h2>
+    <button type="button" id="button1" onclick="getInformation()">Is today a Russian Holiday?</button>
+   
+    <p id="result"> </p>
+    <p id="information">
+      <h3> Purpose </h3>
+      This API uses data from a Russian Government website to inform the user of whether it is currently a holiday in Russia. I found this API on a list of public API's on github. It is part of a work-calendar service.  <br> <h3> URL: </h3> https://datazen.katren.ru/calendar/day/ 
+    <br> Which gets its data from data.gov.ru <br> 
+      <h3>Options</h3>
+      The API returns a JSON object that has information about the current day and whether or not it is a holiday. If the current day is a holiday, the website displays "Yes". If not, it displays "No". Note that the current date is not taken from the users computer, but rather from the website itself. 
+      <h3> Uses </h3>
+      This website has a variety of uses. First, it is useful for non-Russians, who may want to know whether or not today is a Russian holiday. This could be important for businesses, who may have to account for an extra business day shipping or receiving goods from Russia if the current day is a holiday. Likewise, since this website is linked to the official Russian data website, citizens of the country will always be up-to-date about holidays in their country. 
+  	</p>
+  </body>
+  </html>
